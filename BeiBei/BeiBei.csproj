@@ -127,10 +127,19 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BeiBeiController.cs" />
+    <Compile Include="Controllers\CommonList.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HttpClientHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminInfo.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CollectorInfo.cs" />
+    <Compile Include="Models\DealRecord.cs" />
+    <Compile Include="Models\OrderInfo.cs" />
+    <Compile Include="Models\Recycles.cs" />
+    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -253,11 +262,11 @@
     <Content Include="Views\BeiBei\Ordering.cshtml" />
     <Content Include="Views\BeiBei\GetDeal.cshtml" />
     <Content Include="Views\BeiBei\Login.cshtml" />
+    <Content Include="Views\BeiBei\ShowIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\img\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
