@@ -30,7 +30,7 @@ namespace BeiBei.Controllers
 
             HttpResponseMessage response = null;
 
-            switch (method.Trim().ToLower())
+             switch (method.Trim().ToLower())
             {
                 case "get":
                     response = client.GetAsync(url).Result;

@@ -17,7 +17,11 @@ namespace BeiBei.Models
         public string Oid { get; set; }
         //回收员
         public int Cid { get; set; }
+        public string Cname { get; set; }
         //用户ID
         public int Uid { get; set; }
+        public string Uname { get; set; }
+
+        public string Oname { get; set; }
     }
 }
