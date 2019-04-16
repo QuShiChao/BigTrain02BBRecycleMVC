@@ -14,8 +14,8 @@ namespace BeiBei.Models
         public string Oname { get; set; }
         //类型ID
         public int Cid { get; set; }
-        //数量
-        public int Onum { get; set; }
+        //物品单位描述
+        public string Onum { get; set; }
         //用户ID
         public int Uid { get; set; }
         //回收员ID 
@@ -23,7 +23,7 @@ namespace BeiBei.Models
         //收钱方式
         public int Owithdraw { get; set; }
         //收钱金额
-        public double Omoney { get; set; }
+        public decimal Omoney { get; set; }
         //订单描述
         public string Odesription { get; set; }
         //订单时间
