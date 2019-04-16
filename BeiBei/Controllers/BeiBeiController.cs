@@ -10,6 +10,59 @@ namespace BeiBei.Controllers
 {
     public class BeiBeiController : Controller
     {
+        List<UserInfo> userList = CommonList<UserInfo>.GetList();
+        //用户登录
+        public int LoginUser(string tel = "", string pwd = "")
+        {
+            
+            UserInfo user = userList.FirstOrDefault(u => u.Utel.Equals(tel) && u.Upwd.Equals(pwd));
+            if (user == null)
+            {
+                //登录失败
+                return 0;
+            }
+            else
+            {
+                //登录成功
+                return user.Id;
+            }
+        }
+        //获取用户信息
+        public string GetUser(int uid=0)
+        {
+            if (uid > 0)
+            {
+                UserInfo user = userList.FirstOrDefault(u => u.Id.Equals(uid));
+                return JsonConvert.SerializeObject(user);
+            }
+            else
+            {
+                return JsonConvert.SerializeObject(userList);
+            }
+             
+        }
+        //用户修改
+        [HttpPost]
+        public int UpdUser(UserInfo user)
+        {
+            string json = JsonConvert.SerializeObject(user);
+            string result = HttpClientHelper.SendRequest("api/BBRecyleAPI/UpdUser", "put", json);
+            if (result != "")
+            {
+                return 1;
+
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        //添加订单
+        [HttpPost]
+        public int AddOrder(OrderInfo order)
+        {
+            return 0;
+        }
         public ActionResult ShowIndex()
         {
             return View();
@@ -53,7 +106,7 @@ namespace BeiBei.Controllers
             return View();
         }
         //交易记录
-        public ActionResult GetDeal(string cid="")
+        public ActionResult GetDeal(string cid = "")
         {
             //交易记录表
             List<DealRecord> dealRecords = CommonList<DealRecord>.GetList();

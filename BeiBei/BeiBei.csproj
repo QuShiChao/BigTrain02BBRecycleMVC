@@ -205,6 +205,7 @@
     <Content Include="LoginContent\slick\slick.css" />
     <Content Include="LoginContent\slick\slick.js" />
     <Content Include="LoginContent\slick\slick.min.js" />
+    <Content Include="Scripts\axios.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\font-awesome\fonts\fontawesome-webfontba72.eot" />
@@ -238,6 +239,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JSCookie.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
