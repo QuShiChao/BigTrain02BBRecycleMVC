@@ -14,12 +14,15 @@ namespace BeiBei.Models
         public string Oname { get; set; }
         //类型ID
         public int Cid { get; set; }
+        public string Cname { get; set; }
         //物品单位描述
         public string Onum { get; set; }
         //用户ID
         public int Uid { get; set; }
+        public string Uname { get; set; }
         //回收员ID 
         public int Collector_Id { get; set; }
+        public string Cnum { get; set; }
         //收钱方式
         public int Owithdraw { get; set; }
         //收钱金额
