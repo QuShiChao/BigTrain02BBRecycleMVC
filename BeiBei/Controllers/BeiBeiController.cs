@@ -10,53 +10,7 @@ namespace BeiBei.Controllers
 {
     public class BeiBeiController : Controller
     {
-        List<UserInfo> userList = CommonList<UserInfo>.GetList();
-        //用户登录
-        public int LoginUser(string tel = "", string pwd = "")
-        {
-            
-            UserInfo user = userList.FirstOrDefault(u => u.Utel.Equals(tel) && u.Upwd.Equals(pwd));
-            if (user == null)
-            {
-                //登录失败
-                return 0;
-            }
-            else
-            {
-                //登录成功
-                return user.Id;
-            }
-        }
-        //获取用户信息
-        public string GetUser(int uid=0)
-        {
-            if (uid > 0)
-            {
-                UserInfo user = userList.FirstOrDefault(u => u.Id.Equals(uid));
-                return JsonConvert.SerializeObject(user);
-            }
-            else
-            {
-                return JsonConvert.SerializeObject(userList);
-            }
-             
-        }
-        //用户修改
-        [HttpPost]
-        public int UpdUser(UserInfo user)
-        {
-            string json = JsonConvert.SerializeObject(user);
-            string result = HttpClientHelper.SendRequest("api/BBRecyleAPI/UpdUser", "put", json);
-            if (result != "")
-            {
-                return 1;
-
-            }
-            else
-            {
-                return 0;
-            }
-        }
+        
         //添加订单
         [HttpPost]
         public int AddOrder(OrderInfo order)
@@ -123,10 +77,74 @@ namespace BeiBei.Controllers
             return View();
         }
         //订单操作
+        #region   订单操作
+        //订单操作
         public ActionResult Ordering()
         {
-            return View();
+            List<OrderInfo> list = NewMethod();
+            return View(list);
         }
+        public List<OrderInfo> NewMethod()
+        {
+            List<OrderInfo> olist = CommonList<OrderInfo>.GetList().Where(o => o.Ostatus >= 3).ToList();
+            List<Category> catelist = JsonConvert.DeserializeObject<List<Category>>(HttpClientHelper.SendRequest("api/BBRecyleAPI/GetCategory", "get"));
+            List<UserInfo> ulist = CommonList<UserInfo>.GetList();
+            List<CollectorInfo> colllist = CommonList<CollectorInfo>.GetList();
+            var result = from o in olist
+                         join c in catelist on o.Cid equals c.Cid
+                         join u in ulist on o.Uid equals u.Id
+                         join co in colllist on o.Collector_Id equals co.Id
+                         select new
+                         {
+                             Oid = o.Oid,
+                             Oname = o.Oname,
+                             Cid = c.Cid,
+                             Cname = c.Cname,
+                             Onum = o.Onum,
+                             Uid = o.Uid,
+                             Uname = u.Uname,
+                             Collector_Id = co.Id,
+                             Collector_Name = co.Cname,
+                             Owithdraw = o.Owithdraw,
+                             Omoney = o.Omoney,
+                             Otime = o.Otime,
+                             Ostatus = o.Ostatus
+                         };
+            string str = JsonConvert.SerializeObject(result);
+            List<OrderInfo> list = JsonConvert.DeserializeObject<List<OrderInfo>>(str);
+            return list;
+        }
+        //删除订单
+        public void DelOrder(string Oid)
+        {
+            string str = HttpClientHelper.SendRequest("api/BBRecyleAPI/DelOrder?id='" + Oid + "'", "delete");
+            if (str == "1")
+            {
+                Response.Write("<script>alert('删除成功');location.href='/BeiBei/Ordering';</script>");
+            }
+            else
+            {
+                Response.Write("<script>alert('删除失败');location.href='/BeiBei/Ordering';</script>");
+            }
+        }
+        //修改订单状态
+        public void UpdOStatus(string Oid)
+        {
+            var NewMethods = NewMethod();
+            OrderInfo order = NewMethods.Where(s => s.Oid.Equals(Oid)).FirstOrDefault();
+            order.Ostatus = 4;//已结账
+            string content = JsonConvert.SerializeObject(order);
+            string str = HttpClientHelper.SendRequest("api/BBRecyleAPI/UpdOrder", "put", content);
+            if (str == "1")
+            {
+                Response.Write("<script>alert('审核成功');location.href='/BeiBei/Ordering';</script>");
+            }
+            else
+            {
+                Response.Write("<script>alert('审核失败');location.href='/BeiBei/Ordering';</script>");
+            }
+        }
+        #endregion
         //交易记录
         public ActionResult GetDeal(string cid = "")
         {

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-
+using System.Web;
 namespace BeiBei.Models
 {
     //订单
@@ -22,7 +21,7 @@ namespace BeiBei.Models
         public string Uname { get; set; }
         //回收员ID 
         public int Collector_Id { get; set; }
-        public string Cnum { get; set; }
+        public string Collector_Name { get; set; }
         //收钱方式
         public int Owithdraw { get; set; }
         //收钱金额
