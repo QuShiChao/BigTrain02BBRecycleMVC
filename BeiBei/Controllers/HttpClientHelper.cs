@@ -25,12 +25,12 @@ namespace BeiBei.Controllers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));//设置请求的数据传输格式
             HttpContent content = new StringContent(data);// 封装好要发送的数据
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");//设置发送的数据格式
-
+     
             var strVal = "";
 
             HttpResponseMessage response = null;
 
-            switch (method.Trim().ToLower())
+             switch (method.Trim().ToLower())
             {
                 case "get":
                     response = client.GetAsync(url).Result;

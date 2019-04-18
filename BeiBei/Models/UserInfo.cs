@@ -22,8 +22,10 @@ namespace BeiBei.Models
         public string Uimage { get; set; }
         //地址
         public string Uaddr { get; set; }
+        //交易次数
+        public int Unum { get; set; }
         //交易总金额
-        public double Udealmoney { get; set; }
+        public decimal Udealmoney { get; set; }
         //银行卡号
         public string Ubankcard { get; set; }
         //支付宝二维码
