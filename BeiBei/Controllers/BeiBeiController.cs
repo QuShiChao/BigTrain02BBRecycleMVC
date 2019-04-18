@@ -18,6 +18,27 @@ namespace BeiBei.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public void Login(string Name,string Pwd)
+        {
+            if (Pwd.Length>6 && Pwd.Length<16)
+            {
+                Console.WriteLine("<script>alert('密码格式错误');</script>");
+            }
+            else
+            {
+                List<AdminInfo> adminList = CommonList<AdminInfo>.GetList();
+                adminList = adminList.Where(s => s.Aname.Equals(Name) && s.Apwd.Equals(Pwd)).ToList();
+                if (adminList.Count > 0)
+                {
+                    Console.WriteLine("<script>alert('登录成功！');location.href='/BeiBei/Index'</script>");
+                }
+                else
+                {
+                    Console.WriteLine("<script>alert('账号密码输入错误！');</script>");
+                }
+            }
+        }
         //主界面
         public ActionResult Index()
         {
@@ -39,7 +60,8 @@ namespace BeiBei.Controllers
         //显示物品信息
         public ActionResult ShowCategory()
         {
-            return View();
+            List<Recycles> recyclesList = CommonList<Recycles>.GetList();
+            return View(recyclesList);
         }
         //添加回收员
         public ActionResult AddCollector()
