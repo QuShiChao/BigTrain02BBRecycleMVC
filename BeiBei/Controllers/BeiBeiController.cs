@@ -10,7 +10,6 @@ namespace BeiBei.Controllers
 {
     public class BeiBeiController : Controller
     {
-        
         //添加订单
         [HttpPost]
         public int AddOrder(OrderInfo order)
@@ -29,21 +28,22 @@ namespace BeiBei.Controllers
         [HttpPost]
         public void Login(string Name,string Pwd)
         {
-            if (Pwd.Length>6 && Pwd.Length<16)
+            List<AdminInfo> adminList = CommonList<AdminInfo>.GetList();
+            if (Pwd.Length<2 && Pwd.Length>16)
             {
-                Console.WriteLine("<script>alert('密码格式错误');</script>");
+                Response.Write("<script>alert('密码格式错误');</script>");
             }
             else
             {
-                List<AdminInfo> adminList = CommonList<AdminInfo>.GetList();
+                
                 adminList = adminList.Where(s => s.Aname.Equals(Name) && s.Apwd.Equals(Pwd)).ToList();
                 if (adminList.Count > 0)
                 {
-                    Console.WriteLine("<script>alert('登录成功！');location.href='/BeiBei/Index'</script>");
+                    Response.Write("<script>alert('登录成功！');location.href='/BeiBei/Index'</script>");
                 }
                 else
                 {
-                    Console.WriteLine("<script>alert('账号密码输入错误！');</script>");
+                    Response.Write("<script>alert('账号密码输入错误！');</script>");
                 }
             }
         }
@@ -61,15 +61,28 @@ namespace BeiBei.Controllers
         public ActionResult ShowCollector()
         {
             List<UserInfo> usersList = CommonList<UserInfo>.GetList();
-            ViewBag.user = usersList;
             List<CollectorInfo> list = CommonList<CollectorInfo>.GetList();
+            ViewBag.user = usersList;
             return View(list);
         }
         //显示物品信息
-        public ActionResult ShowCategory()
+        public ActionResult ShowRecycles()
         {
             List<Recycles> recyclesList = CommonList<Recycles>.GetList();
-            return View(recyclesList);
+            List<Category> categoryList = JsonConvert.DeserializeObject<List<Category>>(HttpClientHelper.SendRequest("api/BBRecyleAPI/GetCategory", "get"));
+            var result= from r in recyclesList
+                        join c in categoryList on r.Cid equals c.Cid
+                        select new
+                        {
+                            r.Rid,
+                            r.Rname,
+                            c.Cname,
+                            r.Rdescribe,
+                            r.Rinventory
+                        };
+            string str = JsonConvert.SerializeObject(result);
+            List<Recycles> Recycleslist = JsonConvert.DeserializeObject<List<Recycles>>(str);
+            return View(Recycleslist);
         }
         //添加回收员
         public ActionResult AddCollector()
@@ -96,19 +109,19 @@ namespace BeiBei.Controllers
                          join co in colllist on o.Collector_Id equals co.Id
                          select new
                          {
-                             Oid = o.Oid,
-                             Oname = o.Oname,
-                             Cid = c.Cid,
-                             Cname = c.Cname,
-                             Onum = o.Onum,
-                             Uid = o.Uid,
-                             Uname = u.Uname,
+                             o.Oid,
+                             o.Oname,
+                             c.Cid,
+                             c.Cname,
+                             o.Onum,
+                             o.Uid,
+                             u.Uname,
                              Collector_Id = co.Id,
                              Collector_Name = co.Cname,
-                             Owithdraw = o.Owithdraw,
-                             Omoney = o.Omoney,
-                             Otime = o.Otime,
-                             Ostatus = o.Ostatus
+                             o.Owithdraw,
+                             o.Omoney,
+                             o.Otime,
+                             o.Ostatus
                          };
             string str = JsonConvert.SerializeObject(result);
             List<OrderInfo> list = JsonConvert.DeserializeObject<List<OrderInfo>>(str);
