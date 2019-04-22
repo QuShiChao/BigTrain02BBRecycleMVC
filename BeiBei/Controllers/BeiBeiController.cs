@@ -11,6 +11,9 @@ namespace BeiBei.Controllers
 {
     public class BeiBeiController : Controller
     {
+        //添加订单
+        [HttpPost]
+        public int AddOrder(OrderInfo order)
         List<UserInfo> userList = CommonList<UserInfo>.GetList();
         //用户登录
         public dynamic LoginUser(string tel = "", string pwd = "")
@@ -32,41 +35,6 @@ namespace BeiBei.Controllers
                 }
                 return new { Id = user.Id, token = guid };
             }
-        }
-        //获取用户信息
-        public string GetUser(int uid=0)
-        {
-            if (uid > 0)
-            {
-                UserInfo user = userList.FirstOrDefault(u => u.Id.Equals(uid));
-                return JsonConvert.SerializeObject(user);
-            }
-            else
-            {
-                return JsonConvert.SerializeObject(userList);
-            }
-             
-        }
-        //用户修改
-        [HttpPost]
-        public int UpdUser(UserInfo user)
-        {
-            string json = JsonConvert.SerializeObject(user);
-            string result = HttpClientHelper.SendRequest("api/BBRecyleAPI/UpdUser", "put", json);
-            if (result != "")
-            {
-                return 1;
-
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        //添加订单
-        [HttpPost]
-        public int AddOrder(OrderInfo order)
-        {
             return 0;
         }
         public ActionResult ShowIndex()
@@ -77,6 +45,28 @@ namespace BeiBei.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+        [HttpPost]
+        public void Login(string Name,string Pwd)
+        {
+            List<AdminInfo> adminList = CommonList<AdminInfo>.GetList();
+            if (Pwd.Length<2 && Pwd.Length>16)
+            {
+                Response.Write("<script>alert('密码格式错误');</script>");
+            }
+            else
+            {
+                
+                adminList = adminList.Where(s => s.Aname.Equals(Name) && s.Apwd.Equals(Pwd)).ToList();
+                if (adminList.Count > 0)
+                {
+                    Response.Write("<script>alert('登录成功！');location.href='/BeiBei/Index'</script>");
+                }
+                else
+                {
+                    Response.Write("<script>alert('账号密码输入错误！');</script>");
+                }
+            }
         }
         //主界面
         public ActionResult Index()
@@ -92,14 +82,28 @@ namespace BeiBei.Controllers
         public ActionResult ShowCollector()
         {
             List<UserInfo> usersList = CommonList<UserInfo>.GetList();
-            ViewBag.user = usersList;
             List<CollectorInfo> list = CommonList<CollectorInfo>.GetList();
+            ViewBag.user = usersList;
             return View(list);
         }
         //显示物品信息
-        public ActionResult ShowCategory()
+        public ActionResult ShowRecycles()
         {
-            return View();
+            List<Recycles> recyclesList = CommonList<Recycles>.GetList();
+            List<Category> categoryList = JsonConvert.DeserializeObject<List<Category>>(HttpClientHelper.SendRequest("api/BBRecyleAPI/GetCategory", "get"));
+            var result= from r in recyclesList
+                        join c in categoryList on r.Cid equals c.Cid
+                        select new
+                        {
+                            r.Rid,
+                            r.Rname,
+                            c.Cname,
+                            r.Rdescribe,
+                            r.Rinventory
+                        };
+            string str = JsonConvert.SerializeObject(result);
+            List<Recycles> Recycleslist = JsonConvert.DeserializeObject<List<Recycles>>(str);
+            return View(Recycleslist);
         }
         //添加回收员
         public ActionResult AddCollector()
@@ -107,10 +111,74 @@ namespace BeiBei.Controllers
             return View();
         }
         //订单操作
+        #region   订单操作
+        //订单操作
         public ActionResult Ordering()
         {
-            return View();
+            List<OrderInfo> list = NewMethod();
+            return View(list);
         }
+        public List<OrderInfo> NewMethod()
+        {
+            List<OrderInfo> olist = CommonList<OrderInfo>.GetList().Where(o => o.Ostatus >= 3).ToList();
+            List<Category> catelist = JsonConvert.DeserializeObject<List<Category>>(HttpClientHelper.SendRequest("api/BBRecyleAPI/GetCategory", "get"));
+            List<UserInfo> ulist = CommonList<UserInfo>.GetList();
+            List<CollectorInfo> colllist = CommonList<CollectorInfo>.GetList();
+            var result = from o in olist
+                         join c in catelist on o.Cid equals c.Cid
+                         join u in ulist on o.Uid equals u.Id
+                         join co in colllist on o.Collector_Id equals co.Id
+                         select new
+                         {
+                             o.Oid,
+                             o.Oname,
+                             c.Cid,
+                             c.Cname,
+                             o.Onum,
+                             o.Uid,
+                             u.Uname,
+                             Collector_Id = co.Id,
+                             Collector_Name = co.Cname,
+                             o.Owithdraw,
+                             o.Omoney,
+                             o.Otime,
+                             o.Ostatus
+                         };
+            string str = JsonConvert.SerializeObject(result);
+            List<OrderInfo> list = JsonConvert.DeserializeObject<List<OrderInfo>>(str);
+            return list;
+        }
+        //删除订单
+        public void DelOrder(string Oid)
+        {
+            string str = HttpClientHelper.SendRequest("api/BBRecyleAPI/DelOrder?id='" + Oid + "'", "delete");
+            if (str == "1")
+            {
+                Response.Write("<script>alert('删除成功');location.href='/BeiBei/Ordering';</script>");
+            }
+            else
+            {
+                Response.Write("<script>alert('删除失败');location.href='/BeiBei/Ordering';</script>");
+            }
+        }
+        //修改订单状态
+        public void UpdOStatus(string Oid)
+        {
+            var NewMethods = NewMethod();
+            OrderInfo order = NewMethods.Where(s => s.Oid.Equals(Oid)).FirstOrDefault();
+            order.Ostatus = 4;//已结账
+            string content = JsonConvert.SerializeObject(order);
+            string str = HttpClientHelper.SendRequest("api/BBRecyleAPI/UpdOrder", "put", content);
+            if (str == "1")
+            {
+                Response.Write("<script>alert('审核成功');location.href='/BeiBei/Ordering';</script>");
+            }
+            else
+            {
+                Response.Write("<script>alert('审核失败');location.href='/BeiBei/Ordering';</script>");
+            }
+        }
+        #endregion
         //交易记录
         public ActionResult GetDeal(string cid = "")
         {

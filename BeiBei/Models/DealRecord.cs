@@ -22,5 +22,9 @@ namespace BeiBei.Models
         //用户ID
         public int Uid { get; set; }
         public string Uname { get; set; }
+
+        public string Cname { get; set; }
+
+        public string Oname { get; set; }
     }
 }

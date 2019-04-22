@@ -266,7 +266,7 @@
     <Content Include="Views\BeiBei\Index.cshtml" />
     <Content Include="Views\BeiBei\ShowUser.cshtml" />
     <Content Include="Views\BeiBei\ShowCollector.cshtml" />
-    <Content Include="Views\BeiBei\ShowCategory.cshtml" />
+    <Content Include="Views\BeiBei\ShowRecycles.cshtml" />
     <Content Include="Views\BeiBei\AddCollector.cshtml" />
     <Content Include="Views\BeiBei\Ordering.cshtml" />
     <Content Include="Views\BeiBei\GetDeal.cshtml" />

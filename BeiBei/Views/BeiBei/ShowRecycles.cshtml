@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BeiBei.Models.Recycles>
+@{
+    ViewBag.Title = "ShowRecycles";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<h2>ShowRecycles</h2>
+<div id="wrapper">
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="page-header">
+                        物品 <small>信息</small>
+                    </h1>
+                </div>
+            </div>
+            <!-- /. ROW  -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            回收物品信息
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>回收物品编号</th>
+                                            <th>回收物品名称</th>
+                                            <th>回收类型</th>
+                                            <th>回收物品描述</th>
+                                            <th>回收物品库存</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr class="odd gradeX">
+                                                <td>@item.Rid</td>
+                                                <td>@item.Rname</td>
+                                                <td>@item.Cname</td>
+                                                <td class="center">@item.Rdescribe</td>
+                                                <td class="center">@item.Rinventory</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+

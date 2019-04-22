@@ -7,24 +7,19 @@
 <h2>Index</h2>
 <div id="page-wrapper">
     <div id="page-inner">
-
-
         <div class="row">
             <div class="col-md-12">
                 <h1 class="page-header">
-                    Dashboard <small>Summary of your App</small>
+                    贝贝回收 <small>不一样的回收</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Library</a></li>
-                    <li class="active">Data</li>
+                    <li>总量</li>
+                    <li><a href="#222">百分比</a></li>
+                    <li><a href="#333">增减量</a></li>
                 </ol>
             </div>
         </div>
-
-
         <!-- /. ROW  -->
-
         <div class="row">
             <div class="col-md-3 col-sm-12 col-xs-12">
                 <div class="panel panel-primary text-center no-boder bg-color-green green">
@@ -34,7 +29,7 @@
                     </div>
                     <div class="panel-right pull-right">
                         <h3>8,457</h3>
-                        <strong> Daily Visits</strong>
+                        <strong> 数据总量</strong>
                     </div>
                 </div>
             </div>
@@ -46,7 +41,7 @@
 
                     <div class="panel-right pull-right">
                         <h3>52,160 </h3>
-                        <strong> Sales</strong>
+                        <strong> 订单数量</strong>
 
                     </div>
                 </div>
@@ -59,7 +54,7 @@
                     </div>
                     <div class="panel-right pull-right">
                         <h3>15,823 </h3>
-                        <strong> Comments </strong>
+                        <strong> 消息总数</strong>
 
                     </div>
                 </div>
@@ -72,33 +67,17 @@
                     </div>
                     <div class="panel-right pull-right">
                         <h3>36,752 </h3>
-                        <strong>No. of Visits</strong>
+                        <strong>用户总数</strong>
 
                     </div>
                 </div>
             </div>
         </div>
-
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Line Chart
-                    </div>
-                    <div class="panel-body">
-                        <div id="morris-line-chart"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row">
+        <div class="row" id="222">
             <div class="col-xs-6 col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-body easypiechart-panel">
-                        <h4>Customers</h4>
+                        <h4>满意度</h4>
                         <div class="easypiechart" id="easypiechart-blue" data-percent="82">
                             <span class="percent">82%</span>
                         </div>
@@ -108,7 +87,7 @@
             <div class="col-xs-6 col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-body easypiechart-panel">
-                        <h4>Sales</h4>
+                        <h4>评价量</h4>
                         <div class="easypiechart" id="easypiechart-orange" data-percent="55">
                             <span class="percent">55%</span>
                         </div>
@@ -118,7 +97,7 @@
             <div class="col-xs-6 col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-body easypiechart-panel">
-                        <h4>Profits</h4>
+                        <h4>完成率</h4>
                         <div class="easypiechart" id="easypiechart-teal" data-percent="84">
                             <span class="percent">84%</span>
                         </div>
@@ -128,7 +107,7 @@
             <div class="col-xs-6 col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-body easypiechart-panel">
-                        <h4>No. of Visits</h4>
+                        <h4>推荐率</h4>
                         <div class="easypiechart" id="easypiechart-red" data-percent="46">
                             <span class="percent">46%</span>
                         </div>
@@ -136,13 +115,11 @@
                 </div>
             </div>
         </div><!--/.row-->
-
-
-        <div class="row">
+        <div class="row" id="333">
             <div class="col-md-9 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Bar Chart Example
+                        年回收比率统计
                     </div>
                     <div class="panel-body">
                         <div id="morris-bar-chart"></div>
@@ -152,146 +129,16 @@
             <div class="col-md-3 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Donut Chart Example
+                        年订单比率
                     </div>
                     <div class="panel-body">
                         <div id="morris-donut-chart"></div>
                     </div>
                 </div>
             </div>
-
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Area Chart
-                    </div>
-                    <div class="panel-body">
-                        <div id="morris-area-chart"></div>
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- /. ROW  -->
-
-
-
-
-
-        <div class="row">
-            <div class="col-md-4 col-sm-12 col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Tasks Panel
-                    </div>
-                    <div class="panel-body">
-                        <div class="list-group">
-
-                            <a href="#" class="list-group-item">
-                                <span class="badge">7 minutes ago</span>
-                                <i class="fa fa-fw fa-comment"></i> Commented on a post
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <span class="badge">16 minutes ago</span>
-                                <i class="fa fa-fw fa-truck"></i> Order 392 shipped
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <span class="badge">36 minutes ago</span>
-                                <i class="fa fa-fw fa-globe"></i> Invoice 653 has paid
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <span class="badge">1 hour ago</span>
-                                <i class="fa fa-fw fa-user"></i> A new user has been added
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <span class="badge">1.23 hour ago</span>
-                                <i class="fa fa-fw fa-user"></i> A new user has added
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <span class="badge">yesterday</span>
-                                <i class="fa fa-fw fa-globe"></i> Saved the world
-                            </a>
-                        </div>
-                        <div class="text-right">
-                            <a href="#">More Tasks <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-8 col-sm-12 col-xs-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Responsive Table Example
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>S No.</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>User Name</th>
-                                        <th>Email ID.</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>John15482</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Kimsila</td>
-                                        <td>Marriye</td>
-                                        <td>Kim1425</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Rossye</td>
-                                        <td>Nermal</td>
-                                        <td>Rossy1245</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Richard</td>
-                                        <td>Orieal</td>
-                                        <td>Rich5685</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Jacob</td>
-                                        <td>Hielsar</td>
-                                        <td>Jac4587</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Wrapel</td>
-                                        <td>Dere</td>
-                                        <td>Wrap4585</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!-- /. ROW  -->
-        <footer><p>Copyright &copy; 2016.Company name All rights reserved.</p></footer>
+        <footer></footer>
     </div>
     <!-- /. PAGE INNER  -->
 </div>
