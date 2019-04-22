@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BeiBei.Common;
 using BeiBei.Models;
 using Newtonsoft.Json;
 
@@ -12,9 +13,8 @@ namespace BeiBei.Controllers
     {
         List<UserInfo> userList = CommonList<UserInfo>.GetList();
         //用户登录
-        public int LoginUser(string tel = "", string pwd = "")
+        public dynamic LoginUser(string tel = "", string pwd = "")
         {
-            
             UserInfo user = userList.FirstOrDefault(u => u.Utel.Equals(tel) && u.Upwd.Equals(pwd));
             if (user == null)
             {
@@ -24,7 +24,13 @@ namespace BeiBei.Controllers
             else
             {
                 //登录成功
-                return user.Id;
+                HttpCookie cookie = Request.Cookies.Get("token");
+                string guid = "";
+                if (cookie != null)
+                {
+                     guid= cookie.Values["guid"];
+                }
+                return new { Id = user.Id, token = guid };
             }
         }
         //获取用户信息

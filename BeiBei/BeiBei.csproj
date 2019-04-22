@@ -126,10 +126,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\AppSettingsConfig.cs" />
+    <Compile Include="Common\WebApiHelper.cs" />
     <Compile Include="Controllers\BeiBeiController.cs" />
     <Compile Include="Controllers\CommonList.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HttpClientHelper.cs" />
+    <Compile Include="Entity\HttpResponseMsg.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -139,6 +142,8 @@
     <Compile Include="Models\DealRecord.cs" />
     <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\Recycles.cs" />
+    <Compile Include="Models\ResultMsg.cs" />
+    <Compile Include="Models\Token.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -241,7 +246,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\JSCookie.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
