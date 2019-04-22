@@ -50,7 +50,7 @@
                                                 <td>@item.Cname</td>
                                                 <td>@item.Onum</td>
                                                 <td>@item.Uname</td>
-                                                <td>@item.Collector_Name</td>
+                                                <td>@item.Cnum</td>
                                                 <td>
 
                                                     @if (item.Owithdraw == 0)
@@ -68,7 +68,7 @@
                                                 <td>
                                                     @if (item.Ostatus == 3)
                                                     {
-                                                        @:<span style="color:red;">待结账</span>  <button class="btn btn-success" onclick="Comfirm(@item.Oid)"><i class="layui-icon"></i>确认结账</button>
+                                                        @:<span style="color:red;">待结账</span>  
                                                     }
                                                     else if (item.Ostatus == 4)
                                                     {
@@ -76,7 +76,7 @@
                                                     }
 
                                                 </td>
-                                                <td><button class='btn btn-danger' onclick='Del(@item.Oid)'>删除</button></td>
+                                                <td><button class='btn btn-danger' onclick='Del(@item.Oid)'>确认结账</button><button class="btn btn-success" onclick="Comfirm(@item.Oid)"><i class="layui-icon"></i>提交订单</button></td>
                                             </tr>
                                         }
                                     </tbody>

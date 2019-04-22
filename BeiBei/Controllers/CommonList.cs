@@ -34,19 +34,19 @@ namespace BeiBei.Controllers
                     url = "BBRecyleAPI/GetUser";
                     break;
                 case "BookInfo":
-                    url = "http://localhost:57004/api/BBRecyleAPI/GetBook";
+                    url = "BBRecyleAPI/GetBook";
                     break;
                 case "CollectorInfo":
-                    url = "http://localhost:57004/api/BBRecyleAPI/GetCollector";
+                    url = "BBRecyleAPI/GetCollector";
                     break;
                 case "Recycles":
-                    url = "http://localhost:57004/api/BBRecyleAPI/GetRec";
+                    url = "BBRecyleAPI/GetRec";
                     break;
                 case "OrderInfo":
-                    url = "http://localhost:57004/api/BBRecyleAPI/GetOrder";
+                    url = "BBRecyleAPI/GetOrder";
                     break;
                 case "DealRecord":
-                    url = "http://localhost:57004/api/BBRecyleAPI/GetDeal";
+                    url = "BBRecyleAPI/GetDeal";
                     break;
             }
             var obj = WebApiHelper.Get<ProductResultMsg<T>>(url, null, null, staffId);
